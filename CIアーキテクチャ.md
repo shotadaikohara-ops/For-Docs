@@ -25,14 +25,13 @@ graph TB
     B --> D["npm audit / pip-audit 依存脆弱性"]
     B --> E["Trivy fs / image OS・コンテナ脆弱性"]
     B --> F["Gitleaks シークレット検出"]
-    B --> G["AI レビュー CodeRob"]
+    B --> G["CodeRob　AI レビュー "]
 
-    C --> H["GitHub Issue / Code Scanning"]
+    C --> H["GitHub Issue / PR Review コメント"]
     D --> H
     E --> H
     F --> H
-    G --> I["PR Review コメント"]
-    I --> H
+    G --> H
 
     H --> J{"Fail 条件に該当"}
     J -->|Yes| K["修正対応 再 Push"]
@@ -100,15 +99,4 @@ graph TB
 - Gitleaks
 - CodeRob
 
----
 
-## 7. SonarQube データ構造（AI 参照用）
-
-```text
-.sonarqube/
-├── summary.json
-└── issues/
-    └── issue-{key}.json
-```
-
----
