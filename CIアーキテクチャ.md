@@ -45,16 +45,12 @@ graph TB
 | ツール | 役割 | 採用理由 |
 |------|------|------|
 | SonarQube | 静的解析・品質ゲート（バグ、コードスメル、複雑度、リファクタリング検出） | 再現性の高いルールベース解析 |
+| CodeRob | AI コードレビュー | リファクタ観点のレビュー。組織ルールに基づく柔軟な指摘。 |
 | npm audit / pip-audit | 依存関係脆弱性の軽量スキャン | 各言語エコシステム標準 |
 | Trivy（fs / image） | OS・コンテナを含む広域脆弱性診断 | 依存検査のカバレッジ補完 |
 | Gitleaks | シークレット漏洩検出 | 重大事故の未然防止 |
-| CodeRob | AI コードレビュー | 組織ルールに基づく柔軟な指摘。主にはリファクタ観点 |
 
-**補足：SonarQube × AI レビューの役割分担**
-- **SonarQube**：再現可能な静的ルール検査
-- **AI**：文脈理解を伴う可読性・構造改善提案
 
-→ 両者は相補関係にある。
 
 ---
 
@@ -63,10 +59,11 @@ graph TB
 | ツール | 出力形式 | 集約先 | 備考 |
 |------|------|------|------|
 | SonarQube | JSON / Issue | GitHub Issues | 品質台帳 |
+| CodeRob | コメント | PR Review | 非ゲート |
 | npm / pip audit | CLI 結果 | PR Review | 軽量 |
 | Trivy | CLI + Artifact | PR Review | SARIF 化可能 |
 | Gitleaks | CLI 結果 | PR Review（Fail） | 強制停止 |
-| CodeRob | コメント | PR Review | 非ゲート |
+
 
 ---
 
@@ -75,11 +72,12 @@ graph TB
 | チェック | Fail 条件 | CI | 備考 |
 |------|------|------|------|
 | SonarQube | Quality Gate NG | 継続可 | 調整可能 |
+| CodeRob | Fail なし | - | 支援目的 |
 | npm audit | CRITICAL | 停止 | HIGH 以下は警告 |
 | pip-audit | 脆弱性あり | 停止 | 厳格運用 |
 | Trivy | HIGH / CRITICAL | 停止 | OS 影響大 |
 | Gitleaks | 検出あり | 停止 | 重大 |
-| CodeRob | Fail なし | - | 支援目的 |
+
 
 ---
 
